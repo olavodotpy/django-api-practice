@@ -25,17 +25,24 @@ def extract_body_from_response(response=None) -> str:
 
 
 def writer_json(body):
-    with open('assets/static/data.json', "w") as json_file:
-        json.dump(body, json_file)
+    try:
+        with open('assets/static/data.json', "w") as json_file:
+            json.dump(body, json_file)
+    except FileNotFoundError as e:
+        print(f"Error directory not found {e}")
 
 
 
-post = get_request(URL)
+def main():
+    post = get_request(URL)
+    post_body = extract_body_from_response(post)
 
-post_body = extract_body_from_response(post)
+    data = {
+        "body": post_body,
+    }
 
-data = {
-    "body": post_body,
-}
+    writer_json(data)
 
-writer_json(data)
+
+
+main()

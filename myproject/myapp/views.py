@@ -33,6 +33,17 @@ def writer_json(body):
 
 
 
+def home_view(request):
+    post = get_request(URL)
+    post_body = extract_body_from_response(post)
+    context = {
+        'body': post_body,
+    }
+
+    return render(request, 'templates.html', context)
+
+
+
 def main():
     post = get_request(URL)
     post_body = extract_body_from_response(post)
@@ -45,4 +56,5 @@ def main():
 
 
 
-main()
+if __name__ == "__main__":
+    main()
